@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  nginx:
+    container_name: ${APP_ENV}.${APP_NAME}.nginx
+    image: nginx:alpine
+    working_dir: ${DOCKER_APP_BASE_PATH}
+    volumes:
+      - .:${DOCKER_APP_BASE_PATH}
+      - ./.docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - ${EXPOSE_PORT_NGINX}:80
+
+  php-fpm:
+    container_name: ${APP_ENV}.${APP_NAME}.php-fpm
+    build: .docker/php-fpm
+    working_dir: ${DOCKER_APP_BASE_PATH}
+    volumes:
+      - ./:${DOCKER_APP_BASE_PATH}
+
+  mysql:
+    container_name: ${APP_ENV}.${APP_NAME}.mysql
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+    ports:
+      - ${EXPOSE_PORT_DB}:3306
+
+  mongodb:
+    container_name: ${APP_ENV}.${APP_NAME}.mongodb
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+    ports:
+      - ${EXPOSE_PORT_MONGODB}:27017
+
+  rabbitmq:
+    container_name: ${APP_ENV}.${APP_NAME}.rabbitmq
+    image: bitnami/rabbitmq
+    ports:
+      - ${EXPOSE_PORT_RABBITMQ}:5672
+      - ${EXPOSE_PORT_WEB_RABBITMQ}:15672
+    environment:
+      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
