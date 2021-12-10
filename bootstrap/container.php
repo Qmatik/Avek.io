@@ -15,3 +15,4 @@ $app->singleton(
 );
 
 $app->register(App\Providers\AppServiceProvider::class);
+$app->register(Sentry\Laravel\ServiceProvider::class);
