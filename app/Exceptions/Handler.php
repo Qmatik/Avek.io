@@ -22,12 +22,12 @@ class Handler extends ExceptionHandler
 
     private const SENTRY_REPORT_SERVICE = 'sentry';
 
-    public function report(Throwable $e): void
+    public function report(Throwable $exception): void
     {
-        if (app()->bound(self::SENTRY_REPORT_SERVICE) && $this->shouldReport($e)) {
-            app(self::SENTRY_REPORT_SERVICE)->captureException($e);
+        if (app()->bound(self::SENTRY_REPORT_SERVICE) && $this->shouldReport($exception)) {
+            app(self::SENTRY_REPORT_SERVICE)->captureException($exception);
         }
 
-        parent::report($e);
+        parent::report($exception);
     }
 }
