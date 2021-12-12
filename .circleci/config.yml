@@ -1,0 +1,37 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/php:8.0
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "composer.json" }}
+            - v1-dependencies-
+
+      - run: composer install -n --prefer-dist --ignore-platform-reqs
+
+      - save_cache:
+          paths:
+            - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}
+
+      - run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+      - run: ./vendor/bin/phpcs
+      - run: ./vendor/bin/phpmd ./app text codesize,unusedcode,naming
+      - run: ./vendor/bin/phpmd ./bootstrap text codesize,unusedcode,naming
+      - run: ./vendor/bin/phpmd ./database text codesize,unusedcode,naming
+      - run: ./vendor/bin/phpmd ./routes text codesize,unusedcode,naming
+      - run: ./vendor/bin/phpmd ./tests text codesize,unusedcode,naming
+      - run: ./vendor/bin/phpstan analyse ./app --level=1
+      - run: ./vendor/bin/phpstan analyse ./bootstrap --level=1
+      - run: ./vendor/bin/phpstan analyse ./database --level=1
+      - run: ./vendor/bin/phpstan analyse ./routes --level=1
+      - run: ./vendor/bin/phpstan analyse ./tests --level=1
+      - run: ./vendor/bin/phpunit
