@@ -23,19 +23,19 @@ services:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_CORE_PASSWORD}
+      MYSQL_DATABASE: ${DB_CORE_DATABASE}
     ports:
-      - ${EXPOSE_PORT_DB}:3306
+      - ${EXPOSE_PORT_CORE_DB}:3306
 
   mongodb:
     container_name: ${APP_ENV}.${APP_NAME}.mongodb
     image: mongo
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+      MONGO_INITDB_ROOT_USERNAME: ${DB_EVENTS_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_EVENTS_PASSWORD}
     ports:
-      - ${EXPOSE_PORT_MONGODB}:27017
+      - ${EXPOSE_PORT_EVENTS_DB}:27017
 
   rabbitmq:
     container_name: ${APP_ENV}.${APP_NAME}.rabbitmq
