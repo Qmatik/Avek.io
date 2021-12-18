@@ -11,7 +11,7 @@ class CreateCitiesTable extends Migration
     {
         Schema::create('cities', function (Blueprint $table): void {
             $table->unsignedSmallInteger('id', true);
-            $table->string('cities', 50)->unique();
+            $table->string('name', 50)->unique();
         });
     }
 
