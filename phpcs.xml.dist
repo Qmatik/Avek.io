@@ -7,7 +7,6 @@
     <rule ref="PSR2"/>
     <file>./app</file>
     <file>./bootstrap</file>
-    <file>./database</file>
     <file>./routes</file>
     <file>./tests</file>
 </ruleset>

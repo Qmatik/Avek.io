@@ -26,7 +26,7 @@ jobs:
       - run: ./vendor/bin/phpcs
       - run: ./vendor/bin/phpmd ./app text codesize,unusedcode,naming
       - run: ./vendor/bin/phpmd ./bootstrap text codesize,unusedcode,naming
-      - run: ./vendor/bin/phpmd ./database text codesize,unusedcode,naming
+      - run: ./vendor/bin/phpmd ./database text codesize,unusedcode
       - run: ./vendor/bin/phpmd ./routes text codesize,unusedcode,naming
       - run: ./vendor/bin/phpmd ./tests text codesize,unusedcode,naming
       - run: ./vendor/bin/phpstan analyse ./app --level=1
