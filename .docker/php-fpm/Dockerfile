@@ -8,6 +8,8 @@ RUN apt-get update \
     && apt-get install -yq supervisor vim \
     && pecl install -o -f redis \
     && pecl install amqp-1.11.0 \
+    && pecl install mongodb \
+    && docker-php-ext-enable mongodb \
     && docker-php-ext-enable amqp \
     && docker-php-ext-install pdo \
     && docker-php-ext-install pdo_mysql

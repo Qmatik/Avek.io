@@ -17,5 +17,16 @@ return [
             'strict' => false,
             'user_host' => false,
         ],
+        'events' => [
+            'driver' => env('DB_EVENTS_CONNECTION'),
+            'host' => env('DB_EVENTS_HOST'),
+            'port' => env('DB_EVENTS_PORT'),
+            'database' => env('DB_EVENTS_DATABASE'),
+            'username' => env('DB_EVENTS_USERNAME'),
+            'password' => env('DB_EVENTS_PASSWORD'),
+            'options' => [
+                'database' => 'admin',
+            ],
+        ],
     ],
 ];

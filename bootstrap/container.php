@@ -14,5 +14,6 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
+$app->register(Jenssegers\Mongodb\MongodbServiceProvider::class);
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(Sentry\Laravel\ServiceProvider::class);
