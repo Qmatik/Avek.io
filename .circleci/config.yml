@@ -31,7 +31,6 @@ jobs:
       - run: ./vendor/bin/phpmd ./tests text codesize,unusedcode,naming
       - run: ./vendor/bin/phpstan analyse ./app --level=1
       - run: ./vendor/bin/phpstan analyse ./bootstrap --level=1
-      - run: ./vendor/bin/phpstan analyse ./database --level=1
       - run: ./vendor/bin/phpstan analyse ./routes --level=1
       - run: ./vendor/bin/phpstan analyse ./tests --level=1
       - run: ./vendor/bin/phpunit
