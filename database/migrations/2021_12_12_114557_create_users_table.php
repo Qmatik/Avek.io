@@ -11,7 +11,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table): void {
             $table->unsignedSmallInteger('id', true);
-            $table->unsignedSmallInteger('city_id')->constrained();
+            $table->unsignedSmallInteger('city_id')->nullable()->constrained();
             $table->unsignedSmallInteger('supervisor_id')->nullable()->constrained();
             $table->unsignedTinyInteger('role')->index();
             $table->string('name', 100);
